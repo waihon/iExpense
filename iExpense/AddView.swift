@@ -18,6 +18,17 @@ struct AddView: View {
   
   @Environment(\.presentationMode) var presentationMode
   
+  var amountColor: Color {
+    if let actualAmount = Int(self.amount) {
+      if actualAmount >= 100 {
+        return .red
+      } else if actualAmount >= 10 {
+        return .blue
+      }
+    }
+    return .green
+  }
+
   var body: some View {
     NavigationView {
       Form {
@@ -29,6 +40,7 @@ struct AddView: View {
         }
         TextField("Amount", text: $amount)
           .keyboardType(.numberPad)
+          .foregroundColor(self.amountColor)
       }
       .navigationBarTitle("Add new expense")
       .navigationBarItems(trailing: Button("Save") {
