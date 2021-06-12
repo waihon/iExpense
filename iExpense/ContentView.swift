@@ -18,6 +18,8 @@ class Expenses: ObservableObject {
 }
 
 struct ContentView: View {
+  @ObservedObject var expenses = Expenses()
+  
   var body: some View {
     Text("Hello, world!")
       .padding()
