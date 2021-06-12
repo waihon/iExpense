@@ -50,7 +50,11 @@ struct AddView: View {
       }
       .navigationBarTitle("Add new expense")
       .navigationBarItems(trailing: Button("Save") {
-        if let actualAmount = Int(self.amount) {
+        if self.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+          alertTitle = "Error"
+          alertMessage = "Name cannot be blank"
+          showingAlert = true
+        } else if let actualAmount = Int(self.amount) {
           let item = ExpenseItem(name: self.name, type: self.type, amount: actualAmount)
           self.expenses.items.append(item)
           self.presentationMode.wrappedValue.dismiss()
