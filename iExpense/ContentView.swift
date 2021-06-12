@@ -23,6 +23,19 @@ class Expenses: ObservableObject {
       }
     }
   }
+  
+  init() {
+    if let items = UserDefaults.standard.data(forKey: "Items") {
+      let decoder = JSONDecoder()
+      // The self in [ExpenseItem].self marks it as a type object
+      if let decoded = try? decoder.decode([ExpenseItem].self, from: items) {
+        self.items = decoded
+        return
+      }
+    }
+    
+    self.items = []
+  }
 }
 
 struct ContentView: View {
