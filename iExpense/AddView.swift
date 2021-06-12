@@ -24,9 +24,11 @@ struct AddView: View {
         return .red
       } else if actualAmount >= 10 {
         return .blue
+      } else {
+        return .green
       }
     }
-    return .green
+    return .black
   }
 
   var body: some View {
