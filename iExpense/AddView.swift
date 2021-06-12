@@ -18,6 +18,10 @@ struct AddView: View {
   
   @Environment(\.presentationMode) var presentationMode
   
+  @State private var showingAlert = false
+  @State private var alertTitle = ""
+  @State private var alertMessage = ""
+  
   var amountColor: Color {
     if let actualAmount = Int(self.amount) {
       if actualAmount >= 100 {
@@ -50,8 +54,17 @@ struct AddView: View {
           let item = ExpenseItem(name: self.name, type: self.type, amount: actualAmount)
           self.expenses.items.append(item)
           self.presentationMode.wrappedValue.dismiss()
+        } else {
+          alertTitle = "Error"
+          alertMessage = "The Amount field should be an integer number."
+          showingAlert = true
         }
       })
+      .alert(isPresented: $showingAlert) {
+        Alert(title: Text(alertTitle),
+              message: Text(alertMessage),
+              dismissButton: .default(Text("OK")))
+      }
     }
   }
 }
