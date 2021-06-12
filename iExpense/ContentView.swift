@@ -60,12 +60,12 @@ struct ContentView: View {
       }
       .navigationBarTitle("iExpense")
       .navigationBarItems(
-        leading: EditButton(),
-        trailing: Button(action: {
+        leading: Button(action: {
           self.showingAddExpense = true
         }) {
           Image(systemName: "plus")
-        }
+        },
+        trailing: EditButton()
       )
       .sheet(isPresented: $showingAddExpense) {
         AddView(expenses: self.expenses)
